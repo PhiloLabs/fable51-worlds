@@ -15,6 +15,18 @@ import { logoKey } from '../materials/Signage';
 
 export interface GisData { origin: any; buildings: GisBuilding[]; buildingParts: GisBuilding[]; streets: any[]; pois: any[]; trees: any[]; lamps: any[]; signals: any[]; crossings: any[]; hydrants: any[]; benches: any[]; plaza: any; intersections: any[] }
 
+// Fetches JSON with a request timeout so a slow/hanging server can't block loading forever.
+async function fetchJson(url: string, timeoutMs = 10000): Promise<any> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // Heights for landmark buildings whose OSM data is missing/short (metres). Keyed by address or OSM id.
 export const HEIGHT_OVERRIDES: Record<string, BuildingOverride> = {
   "333 O'Farrell Street": { heightM: 46, style: 'concrete' },      // Hilton podium (towers are separate parts)
@@ -50,9 +62,9 @@ export class World {
 
   async loadData(progress: (msg: string, f: number) => void) {
     progress('elevation', 0.05);
-    const elev = await (await fetch(`${BASE}data/elevation.json`)).json();
+    const elev = await fetchJson(`${BASE}data/elevation.json`);
     progress('gis', 0.15);
-    this.gis = await (await fetch(`${BASE}data/gis.json`)).json();
+    this.gis = await fetchJson(`${BASE}data/gis.json`);
     return elev;
   }
 
@@ -72,7 +84,7 @@ export class World {
     this.group.add(this.plaza.group);
     progress('buildings', 0.62);
     // authored façade specs
-    try { const idx = await (await fetch(`${BASE}data/facades/index.json`)).json(); for (const f of idx.files || []) { try { const arr = await (await fetch(`${BASE}data/facades/${f}`)).json(); this.facadeSpecs.push(...arr); } catch (e) { console.warn('facade file failed', f, e); } } } catch { /* no authored specs yet */ }
+    try { const idx = await fetchJson(`${BASE}data/facades/index.json`); for (const f of idx.files || []) { try { const arr = await fetchJson(`${BASE}data/facades/${f}`); this.facadeSpecs.push(...arr); } catch (e) { console.warn('facade file failed', f, e); } } } catch { /* no authored specs yet */ }
     const detailIds = new Set<string>();
     const byId = new Map<string, FacadeSpec>();
     const gb = this.gis.buildings;
@@ -100,7 +112,7 @@ export class World {
     let n = 0;
     // storefront census → tenants for auto-detailed buildings (address match: street + house number/range)
     let census: any[] = [];
-    try { census = await (await fetch(`${BASE}data/storefronts.json`)).json(); } catch { /* optional */ }
+    try { census = await fetchJson(`${BASE}data/storefronts.json`); } catch { /* optional */ }
     const parseAddr = (a: string) => { const m = /^(\d+)(?:\s*[-–]\s*(\d+))?\s+([A-Za-z'.]+)/.exec(a || ''); return m ? { lo: +m[1], hi: +(m[2] || m[1]), street: m[3].replace(/[.']/g, '').toLowerCase() } : null; };
     const tenantsFor = (info: BuildingInfo): { street: string; tenant: any }[] => {
       const b = info.b; const hn = (b.tags['addr:housenumber'] || '').split(/[;,]/).map((x) => x.trim()).filter(Boolean); const street = (b.tags['addr:street'] || info.address || '').replace(/ (Street|Avenue|Lane|St|Ave|Ln)$/i, '').replace(/[.']/g, '').toLowerCase();
