@@ -1,0 +1,13 @@
+{
+  "name": "trench-run",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5190 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4193 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "qa": "node qa/capture.mjs --url http://localhost:5190/"
+  }
+}

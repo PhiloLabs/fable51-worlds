@@ -1,0 +1,26 @@
+import {chromium} from '@playwright/test';
+import {writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import path from 'node:path';
+const browser=await chromium.launch({headless:true,channel:'chrome'});
+const context=await browser.newContext({viewport:{width:1280,height:800},deviceScaleFactor:1,offline:true});
+const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto(pathToFileURL(path.resolve('rogue-squadron.html')).href);
+await page.waitForFunction(()=>{const b=document.querySelector('.primary');return b&&!b.disabled},{timeout:30000});
+await page.getByRole('button',{name:'WATCH CINEMATIC',exact:true}).click();
+await page.getByRole('slider',{name:'Mission timeline'}).evaluate(el=>{Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,160);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));});
+await page.waitForTimeout(150);
+const recording=await page.evaluate(async()=>{
+ const canvas=document.querySelector('.world canvas');
+ const stream=canvas.captureStream(30);
+ const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm;codecs=vp8';
+ const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:12000000});
+ const chunks=[];recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ const stopped=new Promise(resolve=>{recorder.onstop=resolve});
+ recorder.start(500);await new Promise(resolve=>setTimeout(resolve,18100));recorder.stop();await stopped;stream.getTracks().forEach(t=>t.stop());
+ const blob=new Blob(chunks,{type:mime});const reader=new FileReader();const base64=await new Promise(resolve=>{reader.onload=()=>resolve(reader.result);reader.readAsDataURL(blob)});
+ return {base64:base64.split(',')[1],mime,width:canvas.width,height:canvas.height,time:document.querySelector('.world').dataset.time,fps:document.querySelector('.world').dataset.fps};
+});
+await writeFile('output/highlight/destruction-capture.webm',Buffer.from(recording.base64,'base64'));
+const report={...recording,base64:undefined,errors};await writeFile('output/highlight/capture-report.json',JSON.stringify(report,null,2));console.log(report);
+await browser.close();if(errors.length)process.exitCode=1;

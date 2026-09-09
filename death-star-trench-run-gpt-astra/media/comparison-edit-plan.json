@@ -1,0 +1,105 @@
+{
+  "duration": 28.2,
+  "left": "gpt6-astra",
+  "right": "fable5.1",
+  "shots": [
+    {
+      "start": 0,
+      "end": 2.4,
+      "from": 0,
+      "to": 7,
+      "name": "Station approach"
+    },
+    {
+      "start": 2.4,
+      "end": 4.8,
+      "from": 16,
+      "to": 21,
+      "name": "Squadron"
+    },
+    {
+      "start": 4.8,
+      "end": 6.6,
+      "from": 24,
+      "to": 28.8,
+      "name": "Starfighter tracking"
+    },
+    {
+      "start": 6.6,
+      "end": 9,
+      "from": 32,
+      "to": 37,
+      "name": "Interception"
+    },
+    {
+      "start": 9,
+      "end": 11.4,
+      "from": 49,
+      "to": 58,
+      "name": "Surface dive"
+    },
+    {
+      "start": 11.4,
+      "end": 13.8,
+      "from": 69,
+      "to": 73.5,
+      "name": "Trench entry"
+    },
+    {
+      "start": 13.8,
+      "end": 15.6,
+      "from": 85,
+      "to": 89,
+      "name": "Surface defenses"
+    },
+    {
+      "start": 15.6,
+      "end": 18.2,
+      "from": 112,
+      "to": 117,
+      "name": "Final trench run"
+    },
+    {
+      "start": 18.2,
+      "end": 19,
+      "from": 132,
+      "to": 137,
+      "name": "Target lock"
+    },
+    {
+      "start": 19,
+      "end": 20.4,
+      "from": 137,
+      "to": 144.8,
+      "name": "Torpedoes"
+    },
+    {
+      "start": 20.4,
+      "end": 21.15,
+      "from": 145,
+      "to": 157.9,
+      "name": "Escape"
+    },
+    {
+      "start": 21.15,
+      "end": 21.6,
+      "from": 158,
+      "to": 166,
+      "name": "Internal failure"
+    },
+    {
+      "start": 21.6,
+      "end": 25.8,
+      "from": 166,
+      "to": 178,
+      "name": "Explosion and shockwave"
+    },
+    {
+      "start": 25.8,
+      "end": 28.2,
+      "from": 178,
+      "to": 186,
+      "name": "Debris and flypast"
+    }
+  ]
+}
