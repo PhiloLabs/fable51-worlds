@@ -8,41 +8,27 @@ No game engine. No proprietary 3D tiles. No downloaded meshes. Every building, s
 
 ---
 
-## ⚔️ Head-to-head: Claude Fable 5.1 vs GPT-6 Astra
-
-Both models' entries are one-shot results.
-
-### Union Square, San Francisco
-
-Same brief, same test conditions, two models. Each built Union Square from scratch, then the Astra world was filmed along the Fable walkthrough's camera route and the two are shown side by side, unedited.
-
-<a href="union-square-sf-gpt-astra/media/fable51-vs-gpt6-astra-union-square.mp4"><img src="union-square-sf-gpt-astra/media/preview.gif" width="100%" alt="Side by side: GPT-6 Astra on the left, Claude Fable 5.1 on the right"></a>
-
-<sub>▶ **[Watch the head-to-head](union-square-sf-gpt-astra/media/fable51-vs-gpt6-astra-union-square.mp4)** · 59 s · left **GPT-6 Astra**, right **Claude Fable 5.1** · [Fable 5.1 build](union-square-sf/) · [GPT-6 Astra build](union-square-sf-gpt-astra/)</sub>
-
-### Higashiyama, Kyoto
-
-Same brief, two models. Each built Higashiyama from scratch, then the Astra world was filmed to the Fable walkthrough's shot sequence and timing. The two are shown side by side, unedited.
-
-<a href="kyoto-higashiyama-gpt-astra/media/fable51-vs-gpt6-astra-kyoto.mp4"><img src="kyoto-higashiyama-gpt-astra/media/preview.gif" width="100%" alt="Kyoto side by side: Codex / GPT-6 Astra on the left, Claude Fable 5.1 on the right"></a>
-
-<sub>▶ **[Watch the Kyoto comparison](kyoto-higashiyama-gpt-astra/media/fable51-vs-gpt6-astra-kyoto.mp4)** · 53.9 s · left **Codex / GPT-6 Astra**, right **Claude Fable 5.1** · [Fable build](kyoto-higashiyama/) · [Codex source and viewer](kyoto-higashiyama-gpt-astra/) · **[Full Codex walkover GIF](kyoto-higashiyama-gpt-astra/media/kyoto-higashiyama-codex-walkover.gif)**</sub>
-
----
-
 ## Worlds
+
+Every entry is a one-shot result. Where GPT-6 Astra was given the same brief, its world was filmed to the Fable walkthrough's camera route and shot timing, and the two run side by side, unedited - **left GPT-6 Astra, right Claude Fable 5.1**.
 
 ### 🌉 [Union Square, San Francisco](union-square-sf/)
 
-<a href="union-square-sf/media/union-square-walkthrough.mp4"><img src="union-square-sf/media/preview.gif" width="100%" alt="Union Square walkthrough: aerial sweep, Dewey Monument, Nintendo SAN FRANCISCO, Apple Union Square"></a>
+<a href="union-square-sf-gpt-astra/media/fable51-vs-gpt6-astra-union-square.mp4"><img src="union-square-sf-gpt-astra/media/preview.gif" width="100%" alt="Union Square side by side: GPT-6 Astra on the left, Claude Fable 5.1 on the right"></a>
 
-<sub>▶ **[Watch the walkthrough](union-square-sf/media/union-square-walkthrough.mp4)** · 59 s · 1920×1080 · aerial, plaza, Nintendo, lower level, Apple</sub>
+<sub>▶ **[Watch the head-to-head](union-square-sf-gpt-astra/media/fable51-vs-gpt6-astra-union-square.mp4)** · 59 s · left **GPT-6 Astra**, right **Claude Fable 5.1** · [Fable 5.1 build](union-square-sf/) · [GPT-6 Astra build](union-square-sf-gpt-astra/) · Fable alone: **[the walkthrough](union-square-sf/media/union-square-walkthrough.mp4)** (1920×1080 - aerial, plaza, Nintendo, lower level, Apple)</sub>
 
 ### ⛩️ [Higashiyama, Kyoto](kyoto-higashiyama/)
 
-<a href="kyoto-higashiyama/media/kyoto-higashiyama-walkthrough.mp4"><img src="kyoto-higashiyama/media/preview.gif" width="100%" alt="Higashiyama walkthrough: the Yasaka Pagoda at the end of Yasaka-dori"></a>
+<a href="kyoto-higashiyama-gpt-astra/media/fable51-vs-gpt6-astra-kyoto.mp4"><img src="kyoto-higashiyama-gpt-astra/media/preview.gif" width="100%" alt="Kyoto side by side: Codex / GPT-6 Astra on the left, Claude Fable 5.1 on the right"></a>
 
-<sub>▶ **[Watch the walkthrough](kyoto-higashiyama/media/kyoto-higashiyama-walkthrough.mp4)** · 54 s · 1920×1080 · seven scenes, Gion to Kiyomizu-dera at sunset</sub>
+<sub>▶ **[Watch the head-to-head](kyoto-higashiyama-gpt-astra/media/fable51-vs-gpt6-astra-kyoto.mp4)** · 53.9 s · left **Codex / GPT-6 Astra**, right **Claude Fable 5.1** · [Fable build](kyoto-higashiyama/) · [Codex source and viewer](kyoto-higashiyama-gpt-astra/) · Fable alone: **[the walkthrough](kyoto-higashiyama/media/kyoto-higashiyama-walkthrough.mp4)** (1920×1080 - seven scenes, Gion to Kiyomizu-dera at sunset) · [full Codex walkover GIF](kyoto-higashiyama-gpt-astra/media/kyoto-higashiyama-codex-walkover.gif)</sub>
+
+### 🌌 [Death Star Trench Run](death-star-trench-run/)
+
+<a href="death-star-trench-run-gpt-astra/media/fable51-vs-gpt6-astra-trench-run.mp4"><img src="death-star-trench-run-gpt-astra/media/preview.gif" width="100%" alt="Trench run side by side: GPT-6 Astra on the left, Claude Fable 5.1 on the right"></a>
+
+<sub>▶ **[Watch the head-to-head](death-star-trench-run-gpt-astra/media/fable51-vs-gpt6-astra-trench-run.mp4)** · 28.2 s · left **GPT-6 Astra**, right **Claude Fable 5.1** · input: **a clip from a film** · [Fable 5.1 build](death-star-trench-run/) · [GPT-6 Astra build](death-star-trench-run-gpt-astra/) · [method](death-star-trench-run-gpt-astra/media/COMPARISON.md) · Fable alone: **[the reel](death-star-trench-run/media/trench-run.mp4)** (1280×720 - approach, S-foils, interception, dive, trench run, torpedoes, fireball, shockwave) · [the brief](death-star-trench-run/PROMPT.md)</sub>
 
 *More worlds coming.*
 
@@ -55,7 +41,7 @@ Text, video or image. The brief names the **subject** and the **style**, and the
 | Input | A brief looks like | The world that comes back |
 |---|---|---|
 | 📝<br>**Text** | "Hanamikoji, Kyoto - as a hand-painted anime background" | A named place in a named style: real geometry on surveyed ground, with the look written to order |
-| 🎞️<br>**Video** | a thirty-second walk-and-talk from a film | The set behind the shot, continued past the edges of frame - step off the camera path and walk the rest of it |
+| 🎞️<br>**Video** | a clip from a film | The set behind the shot, continued past the edges of frame - step off the camera path and fly the rest of it. See [Death Star Trench Run](death-star-trench-run/) |
 | 🖼️<br>**Image** | one photograph, any angle | The place in the frame as geometry: turn around, change the hour, light it differently |
 
 Style is as open as subject. The same street can come back as a cel-shaded anime plate, a photographic reconstruction or a night scene, because each world's renderer is written for it rather than chosen from a list.
@@ -100,3 +86,5 @@ A world written as code is not the same kind of object as a world generated as p
 ## License
 
 Code and generated assets: [MIT](LICENSE). Geometry is derived from [OpenStreetMap](https://www.openstreetmap.org/copyright) (ODbL), USGS 3DEP (public domain) and the GSI elevation service. Reference photographs are not redistributed here - provenance is recorded per world. Brand names and logos identify the real businesses at their real locations and belong to their owners.
+
+[Death Star Trench Run](death-star-trench-run/) is an unaffiliated homage. *Star Wars*, X-wing, TIE fighter and the Death Star are trademarks of Lucasfilm Ltd. No film footage, audio, models or textures are used or redistributed here - the reference clip informed the shot list and the look, and every asset in that world is generated procedurally by the code beside it.

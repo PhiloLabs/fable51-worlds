@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>TRENCH RUN — Battle of Yavin</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; overflow:hidden; background:#000; }
+  body { font-family: "SF Mono", "Menlo", "Consolas", monospace; color:#cfe6ff; }
+  #app { position:fixed; inset:0; }
+  canvas { display:block; width:100%; height:100%; }
+
+  #hud { position:fixed; inset:0; pointer-events:none; z-index:10; }
+  #hud.hidden { display:none; }
+
+  /* ---------- Boot / title ---------- */
+  #boot {
+    position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:26px;
+    background:radial-gradient(ellipse at 50% 45%, #071018 0%, #000 70%);
+    transition:opacity .9s ease; text-align:center;
+  }
+  #boot.gone { opacity:0; pointer-events:none; }
+  #boot h1 {
+    font-size:clamp(28px,6vw,68px); letter-spacing:.42em; font-weight:700;
+    color:#ffe81f; text-shadow:0 0 34px rgba(255,232,31,.45), 0 0 90px rgba(255,180,0,.22);
+    padding-left:.42em;
+  }
+  #boot h2 { font-size:clamp(10px,1.5vw,15px); letter-spacing:.55em; color:#7fa8c8; font-weight:400; padding-left:.55em; }
+  #boot .bar { width:min(420px,60vw); height:2px; background:#12242f; overflow:hidden; }
+  #boot .bar i { display:block; height:100%; width:0%; background:linear-gradient(90deg,#1e6fa8,#7fd9ff); transition:width .25s ease; }
+  #boot .status { font-size:11px; letter-spacing:.24em; color:#4d7a96; }
+  #boot .status { color:#4d7a96; }
+  .btn {
+    pointer-events:auto; cursor:pointer; border:1px solid #2b6f96; background:rgba(10,30,44,.7);
+    color:#a8dcff; padding:13px 30px; letter-spacing:.3em; font-size:12px; font-family:inherit;
+    transition:all .2s ease; text-transform:uppercase;
+  }
+  .btn:hover { background:rgba(30,90,130,.85); color:#e8f8ff; box-shadow:0 0 26px rgba(80,190,255,.35); }
+  .btn[disabled] { opacity:.35; cursor:default; }
+  #boot .row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  #boot .keys { font-size:10.5px; letter-spacing:.16em; color:#3f6a85; line-height:2; max-width:560px; }
+  #boot .keys b { color:#83b8d6; font-weight:500; }
+</style>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="hud"></div>
+  <div id="boot">
+    <div>
+      <h1>TRENCH RUN</h1>
+      <h2>BATTLE OF YAVIN</h2>
+    </div>
+    <div class="bar"><i id="bootbar"></i></div>
+    <div class="status" id="bootstatus">BUILDING STATION GEOMETRY…</div>
+    <div class="row">
+      <button class="btn" id="btn-play" disabled>Launch</button>
+      <button class="btn" id="btn-cine" disabled>Cinematic (auto)</button>
+    </div>
+    <div class="keys">
+      <b>W A S D</b> / <b>ARROWS</b> steer &nbsp;·&nbsp; <b>Q E</b> roll &nbsp;·&nbsp; <b>SHIFT</b> boost
+      &nbsp;·&nbsp; <b>SPACE</b> lasers &nbsp;·&nbsp; <b>F</b> torpedoes &nbsp;·&nbsp; <b>C</b> toggle autopilot &nbsp;·&nbsp; <b>P</b> pause
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
