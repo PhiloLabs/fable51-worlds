@@ -1,0 +1,88 @@
+{
+  "id": "union-square-sf",
+  "title": "Union Square, San Francisco",
+  "region": "us",
+  "worldDir": "union-square-sf",
+  "outDir": "union-square-sf/src/data/recon",
+  "emitFrameModule": "union-square-sf/src/geo/frame.generated.ts",
+
+  "_comment_bbox": "Unchanged from the existing reconstruction: WGS84 37.7850-37.7910 N, -122.4115 to -122.4035 W, about 800 x 720 m.",
+  "bbox": { "south": 37.785, "west": -122.4115, "north": 37.791, "east": -122.4035 },
+
+  "_comment_frame": "Origin is the Dewey Monument centroid (OSM way 616479962). ORIGIN_ELEVATION_M 23.94 reproduced live from USGS EPQS on 2026-09-03 (value 23.940353394, 1 m raster, acquired 2023-03-04). Grid bearing is the orthogonal fit to Powell/Stockton/Geary/Post.",
+  "frame": {
+    "originLat": 37.787935,
+    "originLon": -122.40752,
+    "originElevationM": 23.94,
+    "gridBearingDeg": 80.686,
+    "lat0Deg": 37.788
+  },
+
+  "clipMarginM": 60,
+  "storefrontMatchRadiusM": 20,
+
+  "sources": [
+    {
+      "adapter": "osm-overpass",
+      "required": true,
+      "options": { "timeoutS": 180 }
+    },
+    {
+      "adapter": "overture",
+      "required": false,
+      "_comment": "Pinned release. Bump deliberately and re-run camera-match QA; an unpinned 'latest' would make every rebuild produce different geometry.",
+      "options": { "release": "2026-08-19.0" }
+    },
+    {
+      "adapter": "usgs-3dep",
+      "required": true,
+      "_comment": "25 m grid over the bbox; San Francisco's block-scale grade needs it and the brief says the environment must not accidentally become flat.",
+      "options": { "stepM": 25 }
+    },
+    {
+      "adapter": "gtfs",
+      "required": false,
+      "_comment": "Muni stops and the Powell St cable-car alignment. GTFS route_type 5 is the cable tram.",
+      "options": { "feed": "sfmta" }
+    },
+    {
+      "adapter": "wikidata",
+      "required": false,
+      "options": { "radiusKm": 0.6 }
+    },
+    {
+      "adapter": "wikimedia-commons",
+      "required": false,
+      "_comment": "Camera-match ground truth. Stores the manifest; ingest re-downloads pixels into the gitignored refs/ tree on demand.",
+      "options": {
+        "radiusM": 200,
+        "limit": 40,
+        "viewpoints": [
+          { "id": "vp-plaza-centre", "lat": 37.78793, "lon": -122.40752 },
+          { "id": "vp-powell-geary", "lat": 37.78683, "lon": -122.40817 },
+          { "id": "vp-post-stockton", "lat": 37.78889, "lon": -122.40667 },
+          { "id": "vp-apple-frontal", "lat": 37.78848, "lon": -122.40691 },
+          { "id": "vp-westin-facade", "lat": 37.78742, "lon": -122.40852 }
+        ]
+      }
+    },
+    {
+      "adapter": "mapillary",
+      "required": false,
+      "_comment": "The licence-clean substitute for Street View. Needs a free MAPILLARY_TOKEN; skipped cleanly without one.",
+      "options": { "limit": 800 }
+    }
+  ],
+
+  "landmarkChecks": [
+    {
+      "label": "Dewey Monument",
+      "qid": "Q5266963",
+      "property": "height",
+      "unit": "m",
+      "surveyValue": 25.9,
+      "surveySourceId": "osm-overpass",
+      "note": "OSM way 616479962 height tag; cross-check against Wikidata P2048."
+    }
+  ]
+}

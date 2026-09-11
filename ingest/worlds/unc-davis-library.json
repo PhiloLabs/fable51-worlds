@@ -1,0 +1,111 @@
+{
+  "id": "unc-davis-library",
+  "title": "Davis Library and the campus core, UNC Chapel Hill",
+  "region": "us",
+  "worldDir": "unc-davis-library",
+  "outDir": "unc-davis-library/src/data/recon",
+  "emitFrameModule": "unc-davis-library/src/geo/frame.generated.ts",
+  "_comment_bbox": "Davis Library plus the campus core that gives it context: Polk Place and the quad to the west, Wilson Library, the Student Union and the Pit to the south, Lenoir. About 720 x 810 m. A library alone would read as a building floating in space, which is the failure the Union Square brief warns about.",
+  "bbox": {
+    "south": 35.9075,
+    "west": -79.0525,
+    "north": 35.914,
+    "east": -79.0435
+  },
+  "_comment_frame": "Origin is the Walter Royal Davis Library footprint centroid, OSM way 44343213 \u2014 a physically identifiable object, per the new-world skill. originElevationM 144.35 from USGS EPQS on 2026-09-03 (value 144.349411011, NAVD88). gridBearingDeg 97.405 is the length-weighted axial (doubled-angle) mean over 3.47 km of South Road, East Cameron Avenue, Raleigh Street, Country Club Road and Stadium Drive \u2014 the same method used for the Union Square grid fit. The campus core sits about 7.4 degrees off a true E-W grid.",
+  "frame": {
+    "originLat": 35.9109606,
+    "originLon": -79.0478858,
+    "originElevationM": 144.35,
+    "gridBearingDeg": 97.405,
+    "lat0Deg": 35.911
+  },
+  "clipMarginM": 60,
+  "storefrontMatchRadiusM": 20,
+  "sources": [
+    {
+      "adapter": "osm-overpass",
+      "required": true,
+      "options": {
+        "timeoutS": 180
+      }
+    },
+    {
+      "adapter": "overture",
+      "required": false,
+      "_comment": "The point of the A/B. OSM way 44343213 carries neither a height nor a building:levels tag, so a baseline build has nothing to extrude Davis Library from.",
+      "options": {
+        "release": "2026-08-19.0"
+      }
+    },
+    {
+      "adapter": "usgs-3dep",
+      "required": true,
+      "_comment": "Chapel Hill's campus core drops toward the Pit and Lenoir; a flat plate would misread the site badly.",
+      "options": {
+        "stepM": 25
+      }
+    },
+    {
+      "adapter": "usgs-lidar-lpc",
+      "required": false,
+      "_comment": "Measured building heights from the 3DEP point cloud. Declared AFTER osm-overpass because it needs the footprints. This is what settles Davis Library: OSM is silent, Overture says 11.73 m for an 8-floor building, the lidar measures the roof.",
+      "options": {
+        "maxTiles": 2,
+        "insetM": 2.5,
+        "annulusM": 25,
+        "minPoints": 30
+      }
+    },
+    {
+      "adapter": "wikidata",
+      "required": false,
+      "options": {
+        "radiusKm": 0.7
+      }
+    },
+    {
+      "adapter": "wikimedia-commons",
+      "required": false,
+      "options": {
+        "radiusM": 220,
+        "limit": 40,
+        "viewpoints": [
+          {
+            "id": "vp-davis-entrance",
+            "lat": 35.91055,
+            "lon": -79.04836
+          },
+          {
+            "id": "vp-davis-from-polk-place",
+            "lat": 35.91093,
+            "lon": -79.04985
+          },
+          {
+            "id": "vp-wilson-library",
+            "lat": 35.91014,
+            "lon": -79.04973
+          },
+          {
+            "id": "vp-the-pit",
+            "lat": 35.91011,
+            "lon": -79.04773
+          },
+          {
+            "id": "vp-south-road",
+            "lat": 35.90948,
+            "lon": -79.04795
+          }
+        ]
+      }
+    },
+    {
+      "adapter": "mapillary",
+      "required": false,
+      "options": {
+        "limit": 800
+      }
+    }
+  ],
+  "landmarkChecks": []
+}

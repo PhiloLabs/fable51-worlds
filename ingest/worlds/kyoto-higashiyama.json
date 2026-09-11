@@ -1,0 +1,95 @@
+{
+  "id": "kyoto-higashiyama",
+  "title": "Southern Higashiyama, Kyoto — Gion to Kiyomizu-dera",
+  "region": "jp",
+  "worldDir": "kyoto-higashiyama",
+  "outDir": "kyoto-higashiyama/src/data",
+  "emitFrameModule": "kyoto-higashiyama/src/data/frame.generated.js",
+
+  "_comment_bbox": "Covers the whole 2.3 km walking route: Hanamikoji in the west to the Kiyomizu-dera precinct in the east, Shirakawa in the north to Gojo-zaka in the south.",
+  "bbox": { "south": 34.9925, "west": 135.7735, "north": 35.0045, "east": 135.7885 },
+
+  "_comment_frame": "Anchor is the Yasaka Pagoda (Hokan-ji), OSM way 371717416 centroid. originElevationM 61.3 reproduced live from the GSI 1 m lidar DEM on 2026-09-03 (hsrc '1m(laser)'), matching the committed geo.json ground_elev_m. gridBearingDeg 90 gives the plain +X=east/+Z=south frame this world already uses.",
+  "frame": {
+    "originLat": 34.9985564,
+    "originLon": 135.7792488,
+    "originElevationM": 61.3,
+    "gridBearingDeg": 90,
+    "lat0Deg": 34.9986
+  },
+
+  "clipMarginM": 80,
+  "storefrontMatchRadiusM": 15,
+
+  "sources": [
+    {
+      "adapter": "osm-overpass",
+      "required": true,
+      "options": { "timeoutS": 180 }
+    },
+    {
+      "adapter": "gsi-dem",
+      "required": true,
+      "_comment": "The route climbs 76 m net over 2.3 km. 15 m sampling because the Sannenzaka and Kiyomizu-zaka gradients are what make the walk read correctly; anything coarser flattens the steps.",
+      "options": { "stepM": 15 }
+    },
+    {
+      "adapter": "plateau",
+      "required": false,
+      "_comment": "The largest available accuracy upgrade for this world and currently unused. FY2025 Kyoto ships LOD2 building models (real roof geometry, not extruded footprints) plus LOD3.3 for the model districts, with per-building usage and year-of-construction. downloadCityGml is off by default because the bundle is hundreds of MB.",
+      "options": {
+        "municipality": "kyoto-shi",
+        "dataset": "plateau-26100-kyoto-shi-2025",
+        "downloadCityGml": false
+      }
+    },
+    {
+      "adapter": "wikidata",
+      "required": false,
+      "_comment": "Mechanical cross-check for the six figures the survey overturned. A disagreement becomes a row in UNCERTAINTY.md rather than a silently wrong number.",
+      "options": { "radiusKm": 1.2 }
+    },
+    {
+      "adapter": "wikimedia-commons",
+      "required": false,
+      "options": {
+        "radiusM": 200,
+        "limit": 40,
+        "viewpoints": [
+          { "id": "vp-yasaka-pagoda", "lat": 34.99856, "lon": 135.77925 },
+          { "id": "vp-gion-shirakawa", "lat": 35.00437, "lon": 135.77502 },
+          { "id": "vp-yasaka-shrine", "lat": 35.00363, "lon": 135.77854 },
+          { "id": "vp-sannenzaka", "lat": 34.99697, "lon": 135.78135 },
+          { "id": "vp-kiyomizu-stage", "lat": 34.99479, "lon": 135.78515 }
+        ]
+      }
+    },
+    {
+      "adapter": "mapillary",
+      "required": false,
+      "options": { "limit": 800 }
+    }
+  ],
+
+  "_comment_checks": "These are the survey figures the README documents as overturning the popular numbers. Encoding them here turns that table from prose into a build-time assertion: if Wikidata disagrees by more than the reconciliation tolerance, the conflict lands in UNCERTAINTY.md with both values and both sources.",
+  "landmarkChecks": [
+    {
+      "label": "Yasaka Pagoda (Hokan-ji five-storey pagoda)",
+      "qid": "Q11555353",
+      "property": "height",
+      "unit": "m",
+      "surveyValue": 38.79,
+      "surveySourceId": "hamashima-1969-aij",
+      "note": "Hamashima 1969 (AIJ), from the Kyoto Pref. preservation drawings. The widely-repeated 46 m is explicitly a nominal figure."
+    },
+    {
+      "label": "Kiyomizu-dera main hall stage",
+      "qid": "Q1052849",
+      "property": "height",
+      "unit": "m",
+      "surveyValue": 13.0,
+      "surveySourceId": "temple-survey",
+      "note": "Stage deck sits 115.5 m ASL per the GSI DEM; the commonly cited 240-250 m is the ridge behind the temple, not the stage."
+    }
+  ]
+}

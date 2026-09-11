@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# The repo had no CI at all. These three jobs cover the failure modes that were
+# actually reachable: a typecheck break, a world that no longer builds, and an
+# ingest change that silently loosens the provenance gate.
+jobs:
+  ingest:
+    name: ingest — unit tests and manifest validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      # No dependencies to install: the ingest package is deliberately dep-free.
+      - name: Unit tests (offline)
+        run: node --test 'ingest/test/**/*.test.mjs'
+      - name: Adapter registry loads and every licence is registered
+        run: node ingest/bin/ingest.mjs sources
+      - name: Every world manifest parses and declares known sources
+        run: |
+          for w in $(node ingest/bin/ingest.mjs worlds); do
+            echo "::group::$w"
+            node -e "
+              import('./ingest/src/pipeline.mjs')
+                .then(m => m.loadWorld(process.cwd(), '$w'))
+                .then(w => console.log(w.id, '->', w.sources.map(s => s.adapter).join(', ')))
+                .catch(e => { console.error(e.message); process.exit(1); });
+            "
+            echo "::endgroup::"
+          done
+
+  worlds:
+    name: ${{ matrix.world }} — typecheck and build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        world: [union-square-sf, kyoto-higashiyama]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: ${{ matrix.world }}/package-lock.json
+      - run: npm ci
+        working-directory: ${{ matrix.world }}
+      - name: Typecheck
+        working-directory: ${{ matrix.world }}
+        # kyoto-higashiyama is plain JS and has no typecheck script.
+        run: npm run typecheck --if-present
+      - name: Build
+        working-directory: ${{ matrix.world }}
+        run: npm run build
+
+  live-sources:
+    name: live source smoke test
+    runs-on: ubuntu-latest
+    # Upstream outages are not this repo's fault. This job reports without
+    # blocking a merge, so a Overpass hiccup cannot wedge the queue — but a
+    # persistent red here means an adapter has genuinely broken.
+    continue-on-error: true
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Fetch the keyless sources for one world
+        run: |
+          node ingest/bin/ingest.mjs fetch union-square-sf \
+            --only osm-overpass,wikidata,wikimedia-commons

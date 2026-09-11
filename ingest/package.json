@@ -1,0 +1,18 @@
+{
+  "name": "@fable51-worlds/ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reproducible, provenance-stamped data ingress for fable51-worlds. One manifest per world, one adapter per public dataset.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "ingest": "./bin/ingest.mjs"
+  },
+  "scripts": {
+    "sources": "node bin/ingest.mjs sources",
+    "test": "node --test 'test/**/*.test.mjs'"
+  }
+}
